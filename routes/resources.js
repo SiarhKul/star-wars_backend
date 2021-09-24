@@ -1,7 +1,13 @@
 import { Router } from 'express';
-import { getResources, getSpecialResources } from '../controllers/resources.js';
+import {
+	getResources,
+	getSpecialResources,
+	getHomePage,
+} from '../controllers/resources.js';
 
 const router = Router();
+
+router.get('/', getHomePage);
 
 router.get('/people', getResources);
 router.get('/films', getResources);

@@ -7,6 +7,10 @@ const handlerError = error => {
 	};
 };
 
+export const getHomePage = (req, res) => {
+	res.send(`<h1>Custom server star-wars running...</h1>`);
+};
+
 export const getResources = async (req, res) => {
 	const resours = req.originalUrl;
 
