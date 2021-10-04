@@ -1,63 +1,57 @@
 import fetch from 'node-fetch';
-import People from '../models/resources.js';
 import chalk from 'chalk';
-import { errorHandler } from '../utils/index.js';
-import { getAllResources } from '../API/index.js';
-import { connectMongoose } from '../mongoDB/connectDB.js';
 import {
-	changeUrlResource,
-	updateCreatedDate,
-	updateEditedDate,
-} from './aggregation/index.js';
+	convertDataBase,
+	createUrl,
+	errorHandler,
+	fetchSpecificResources,
+} from '../utils/index.js';
+import { connectMongoose } from '../mongoDB/connectDB.js';
+
+import PlanetsModel from '../models/Planets.js';
+import FilmsModel from '../models/Films.js';
+import PeopleModel from '../models/People.js';
+import SpaciestModel from '../models/Species.js';
+import VehiclesModel from '../models/Vehicles.js';
+import StarshipsModel from '../models/Starships.js';
 
 await connectMongoose();
 
-const getSpecificResources = async urls => {
-	const resourcesCollection = [];
-
-	const request = await fetch(urls);
-	const { count, results, next } = await request.json();
-
+const getSpecificResources = async (url, model) => {
+	console.log(chalk.yellow('Database has been migrated -----', url));
+	const request = await fetch(url);
+	const { count, results } = await request.json();
 	const amountPage = Math.ceil(count / results.length);
-	const url = next.replace(/\d+$/, '');
 
-	const arrUrls = Array.from(
-		{ length: amountPage },
-		(v, i) => `${url}${i + 1}`
-	);
+	const urls = createUrl(amountPage, url);
 
-	const res = await Promise.all(
-		arrUrls.map(url =>
-			fetch(url)
-				.then(resp => resp.json())
-				.then(data => data.results)
-		)
-	);
-
-	resourcesCollection.push(...res.flat());
-	return resourcesCollection;
+	const specificResources = await fetchSpecificResources(urls);
+	const newSpecificResources = convertDataBase(specificResources);
+	await model.insertMany(newSpecificResources);
 };
 
 const migration = async () => {
 	try {
-		// const requestAllUrls = await fetch(`https://swapi.dev/api`);
-		// const allUrls = await requestAllUrls.json();
-		// const resources = await getAllResources(allUrls);
+		console.log(chalk.black.bgGreenBright('Starting migration database'));
 
-		const specificResource = await getSpecificResources(
-			`https://swapi.dev/api/people`
+		await getSpecificResources('https://swapi.dev/api/people/', PeopleModel);
+		await getSpecificResources('https://swapi.dev/api/films/', FilmsModel);
+		await getSpecificResources('https://swapi.dev/api/planets/', PlanetsModel);
+		await getSpecificResources('https://swapi.dev/api/species/', SpaciestModel);
+		await getSpecificResources(
+			'https://swapi.dev/api/starships/',
+			StarshipsModel
 		);
-		console.log('----------- - specificResource', specificResource);
+		await getSpecificResources(
+			'https://swapi.dev/api/vehicles/',
+			VehiclesModel
+		);
 
-		// await People.insertMany(specificResource);
-		// await People.updateMany({}, updateCreatedDate);
-		// await People.updateMany({}, updateEditedDate);
-		// await People.updateMany({}, changeUrlResource);
-
-		console.log(chalk.bgGreenBright('Success migration database'));
+		console.log(chalk.black.bgGreenBright('Finishing migration database'));
 	} catch (error) {
-		console.log(chalk.bgRedBright('Error migration database'));
-		console.log(chalk.bgRedBright(error));
+		console.log(
+			chalk.black.bgRedBright.bold('Error migration database', error)
+		);
 		errorHandler(error);
 	}
 };

@@ -4,28 +4,27 @@ const { Schema, model } = mongoose;
 
 const descriptionSchemas = {
 	type: String,
-	required: true,
 };
 
 const schema = new Schema({
+	name: descriptionSchemas,
 	birth_year: descriptionSchemas,
 	eye_color: descriptionSchemas,
 	gender: descriptionSchemas,
 	hair_color: descriptionSchemas,
 	height: descriptionSchemas,
 	mass: descriptionSchemas,
-	name: descriptionSchemas,
 	skin_color: descriptionSchemas,
-	created: descriptionSchemas,
-	edited: descriptionSchemas,
-	homeworld: [String],
+	homeworld: descriptionSchemas,
 	films: [String],
 	species: [String],
 	starships: [String],
-	url: [String],
 	vehicles: [String],
+	url: descriptionSchemas,
+	edited: descriptionSchemas,
+	created: descriptionSchemas,
 });
 
-const People = model('People', schema);
+const PeopleModel = model('People', schema);
 
-export default People;
+export default PeopleModel;
