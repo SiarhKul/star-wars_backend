@@ -8,7 +8,7 @@ export const connectMongoose = async () => {
 	return mongoose
 		.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
 		.then(res => {
-			console.log(chalk.bgGreenBright('Database has been connected...'));
+			console.log(chalk.blue.bgGreenBright('Database has been connected...'));
 		})
 		.catch(error => {
 			console.log(chalk.bgRedBright(error));

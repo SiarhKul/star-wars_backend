@@ -1,12 +1,12 @@
 import fetch from 'node-fetch';
+import config from 'config';
 
-export const errorHandler = error => {
-	return {
-		error: error.message,
-		detail: 'Not found',
-	};
-};
+const PORT = config.get('port');
+const URL = config.get('url');
+const ORIGINURL = config.get('originUrl');
+const host = `${URL}${PORT}`;
 
+//---------------------MIGRATION
 export const createUrl = (amountPage, url) => {
 	return Array.from({ length: amountPage }, (_, i) => `${url}?page=${i + 1}`);
 };
@@ -27,16 +27,11 @@ export const convertDataBase = convertedResources => {
 	const newResourcesCollection = convertedResources.map((resours, i) => {
 		for (const key in resours) {
 			if (Array.isArray(resours[key])) {
-				resours[key] = resours[key].map(a =>
-					a.replace('https://swapi.dev/api', 'http://localhos/5000')
-				);
+				resours[key] = resours[key].map(a => a.replace(ORIGINURL, `${host}`));
 			}
 
 			if (key === 'url' && typeof resours[key] === 'string') {
-				resours['url'] = resours[key].replace(
-					'https://swapi.dev/api',
-					'http://localhos/5000'
-				);
+				resours['url'] = resours[key].replace(ORIGINURL, `${host}`);
 			}
 
 			if (key === 'created' && typeof resours[key] === 'string') {
@@ -48,13 +43,18 @@ export const convertDataBase = convertedResources => {
 			}
 
 			if (key === 'homeworld' && typeof resours[key] === 'string') {
-				resours[key] = resours[key].replace(
-					'https://swapi.dev/api',
-					'http://localhos/5000'
-				);
+				resours[key] = resours[key].replace(ORIGINURL, `${host}`);
 			}
 		}
 		return { ...resours };
 	});
 	return newResourcesCollection;
+};
+
+//---------------------COMMON
+export const errorHandler = error => {
+	return {
+		error: error.message,
+		detail: 'Not found',
+	};
 };
