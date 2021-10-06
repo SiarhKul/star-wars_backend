@@ -1,26 +1,31 @@
 import { Router } from 'express';
 import {
-	getResources,
-	getSpecialResources,
-	getHomePage,
+	getPeopleResources,
+	getFilmsResources,
+	getStarshipsResources,
+	getVehiclesResources,
+	getSpeciesResources,
+	getPlanetsResources,
 } from '../controllers/resources.js';
+import { getSpecificResources } from '../controllers/specificResources.js';
+import { getHomePage } from '../controllers/welcome.js';
 
 const router = Router();
 
 router.get('/', getHomePage);
 
-router.get('/people', getResources);
-router.get('/films', getResources);
-router.get('/starships', getResources);
-router.get('/vehicles', getResources);
-router.get('/species', getResources);
-router.get('/planets', getResources);
+router.get('/people', getPeopleResources);
+router.get('/films', getFilmsResources);
+router.get('/starships', getStarshipsResources);
+router.get('/vehicles', getVehiclesResources);
+router.get('/species', getSpeciesResources);
+router.get('/planets', getPlanetsResources);
 
-router.get('/people/:id', getSpecialResources('people'));
-router.get('/films/:id', getSpecialResources('films'));
-router.get('/starships/:id', getSpecialResources('starships'));
-router.get('/vehicles/:id', getSpecialResources('vehicles'));
-router.get('/species/:id', getSpecialResources('species'));
-router.get('/planets/:id', getSpecialResources('planets'));
+router.get('/people/:id', getSpecificResources('people'));
+router.get('/films/:id', getSpecificResources('films'));
+router.get('/starships/:id', getSpecificResources('starships'));
+router.get('/vehicles/:id', getSpecificResources('vehicles'));
+router.get('/species/:id', getSpecificResources('species'));
+router.get('/planets/:id', getSpecificResources('planets'));
 
 export default router;

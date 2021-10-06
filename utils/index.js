@@ -58,3 +58,40 @@ export const errorHandler = error => {
 		detail: 'Not found',
 	};
 };
+
+export const getNextPrevUrl = (query, PORT, URL, pathname, amountFilmsInDB) => {
+	const perPage = 4;
+	const possibleAmountPage = Math.ceil(amountFilmsInDB / perPage);
+	const isEmptyQuery = Object.keys(query).length === 0;
+	const queryPage = parseInt(query.page);
+	const hasQueryNil = parseInt(query.page) === 0;
+	const url = `${URL}${PORT}${pathname}`;
+
+	if (isEmptyQuery || hasQueryNil) {
+		return {
+			amountPage: possibleAmountPage,
+			perPage: perPage,
+			page: 0,
+			prevUrl: null,
+			nextUrl: `${url}?page=2`,
+		};
+	}
+
+	if (possibleAmountPage === queryPage) {
+		return {
+			amountPage: possibleAmountPage,
+			perPage: perPage,
+			page: query.page - 1,
+			prevUrl: `${url}?page=${queryPage - 1}`,
+			nextUrl: null,
+		};
+	}
+
+	return {
+		amountPage: possibleAmountPage,
+		perPage: perPage,
+		page: query.page - 1,
+		prevUrl: `${url}?page=${queryPage - 1}`,
+		nextUrl: `${url}?page=${queryPage + 1}`,
+	};
+};
