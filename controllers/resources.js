@@ -10,6 +10,8 @@ import PlanetsModel from '../models/Planets.js';
 
 const PORT = config.get('port');
 const URL = config.get('url');
+const queryFind = {};
+const optionFind = { __v: 0, _id: 0 };
 
 export const getPeopleResources = async (req, res) => {
 	const {
@@ -29,7 +31,7 @@ export const getPeopleResources = async (req, res) => {
 			amountPeopleInDB
 		);
 
-		const peopleResponced = await PeopleModel.find()
+		const peopleResponced = await PeopleModel.find(queryFind, optionFind)
 			.sort({ name: 1 })
 			.limit(nextPrevPage.perPage)
 			.skip(nextPrevPage.perPage * nextPrevPage.page);
@@ -39,7 +41,7 @@ export const getPeopleResources = async (req, res) => {
 			count: amountPeopleInDB,
 			next: nextPrevPage.nextUrl,
 			previous: nextPrevPage.prevUrl,
-			results: [peopleResponced],
+			results: peopleResponced,
 		};
 
 		res
@@ -73,7 +75,7 @@ export const getFilmsResources = async (req, res) => {
 			amountFilmsInDB
 		);
 
-		const filmsResponced = await FilmsModel.find()
+		const filmsResponced = await FilmsModel.find(queryFind, optionFind)
 			.sort({ title: 1 })
 			.limit(nextPrevPage.perPage)
 			.skip(nextPrevPage.perPage * nextPrevPage.page);
@@ -83,7 +85,7 @@ export const getFilmsResources = async (req, res) => {
 			count: amountFilmsInDB,
 			next: nextPrevPage.nextUrl,
 			previous: nextPrevPage.prevUrl,
-			results: [filmsResponced],
+			results: filmsResponced,
 		};
 
 		res
@@ -117,7 +119,7 @@ export const getStarshipsResources = async (req, res) => {
 			amountStarshipsInDB
 		);
 
-		const starshipsResponced = await StarshipsModel.find()
+		const starshipsResponced = await StarshipsModel.find(queryFind, optionFind)
 			.sort({ title: 1 })
 			.limit(nextPrevPage.perPage)
 			.skip(nextPrevPage.perPage * nextPrevPage.page);
@@ -127,7 +129,7 @@ export const getStarshipsResources = async (req, res) => {
 			count: amountStarshipsInDB,
 			next: nextPrevPage.nextUrl,
 			previous: nextPrevPage.prevUrl,
-			results: [starshipsResponced],
+			results: starshipsResponced,
 		};
 
 		res
@@ -161,7 +163,7 @@ export const getVehiclesResources = async (req, res) => {
 			amountVehiclesInDB
 		);
 
-		const vehiclesResponced = await VehiclesModel.find()
+		const vehiclesResponced = await VehiclesModel.find(queryFind, optionFind)
 			.sort({ name: 1 })
 			.limit(nextPrevPage.perPage)
 			.skip(nextPrevPage.perPage * nextPrevPage.page);
@@ -171,7 +173,7 @@ export const getVehiclesResources = async (req, res) => {
 			count: amountVehiclesInDB,
 			next: nextPrevPage.nextUrl,
 			previous: nextPrevPage.prevUrl,
-			results: [vehiclesResponced],
+			results: vehiclesResponced,
 		};
 
 		res
@@ -205,7 +207,7 @@ export const getSpeciesResources = async (req, res) => {
 			amountSpeciesInDB
 		);
 
-		const speciesResponced = await SpaciestModel.find()
+		const speciesResponced = await SpaciestModel.find(queryFind, optionFind)
 			.sort({ name: 1 })
 			.limit(nextPrevPage.perPage)
 			.skip(nextPrevPage.perPage * nextPrevPage.page);
@@ -215,7 +217,7 @@ export const getSpeciesResources = async (req, res) => {
 			count: amountSpeciesInDB,
 			next: nextPrevPage.nextUrl,
 			previous: nextPrevPage.prevUrl,
-			results: [speciesResponced],
+			results: speciesResponced,
 		};
 
 		res
@@ -249,7 +251,7 @@ export const getPlanetsResources = async (req, res) => {
 			amountPlanetsInDB
 		);
 
-		const speciesResponced = await PlanetsModel.find()
+		const speciesResponced = await PlanetsModel.find(queryFind, optionFind)
 			.sort({ name: 1 })
 			.limit(nextPrevPage.perPage)
 			.skip(nextPrevPage.perPage * nextPrevPage.page);
@@ -259,7 +261,7 @@ export const getPlanetsResources = async (req, res) => {
 			count: amountPlanetsInDB,
 			next: nextPrevPage.nextUrl,
 			previous: nextPrevPage.prevUrl,
-			results: [speciesResponced],
+			results: speciesResponced,
 		};
 
 		res
