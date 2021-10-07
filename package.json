@@ -4,7 +4,8 @@
 	"description": "star-wars_backend",
 	"main": "app.js",
 	"scripts": {
-		"serve": "nodemon app.js"
+		"serve": "nodemon app.js",
+		"migration": " node migration/migration.js"
 	},
 	"type": "module",
 	"repository": {
@@ -21,11 +22,16 @@
 	"dependencies": {
 		"aws-sdk": "^2.994.0",
 		"chalk": "^4.1.2",
+		"config": "^3.3.6",
 		"express": "^4.17.1",
+		"mongoose": "^6.0.7",
 		"node-fetch": "^3.0.0"
 	},
 	"devDependencies": {
 		"@types/express": "^4.17.13",
 		"nodemon": "^2.0.12"
+	},
+	"engines": {
+		"node": "14.17.1"
 	}
 }

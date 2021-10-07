@@ -1,0 +1,5 @@
+{
+	"port": 5000,
+	"url": "http://localhost:",
+	"originUrl": "https://swapi.dev/api"
+}
