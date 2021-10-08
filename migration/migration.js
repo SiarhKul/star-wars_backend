@@ -14,7 +14,11 @@ import PeopleModel from '../models/People.js';
 import SpaciestModel from '../models/Species.js';
 import VehiclesModel from '../models/Vehicles.js';
 import StarshipsModel from '../models/Starships.js';
-import { aggregateUrlResource } from './aggregation/index.js';
+
+import {
+	aggregateUrlResource,
+	aggregateUrlsResources,
+} from './aggregation/index.js';
 
 await connectMongoose();
 
@@ -30,6 +34,7 @@ const getSpecificResources = async (url, model) => {
 		'people',
 		'residents',
 		'characters',
+		'planets',
 	];
 
 	const request = await fetch(url);
@@ -47,12 +52,13 @@ const getSpecificResources = async (url, model) => {
 	if (db.length === 0) {
 		await model.insertMany(newSpecificResources);
 		for (const iterator of resources) {
-			await model.updateMany({}, aggregateUrlResource(iterator));
+			await model.updateMany({}, aggregateUrlsResources(iterator));
 		}
 	} else {
 		console.log('updating database');
 		for (const iterator of resources) {
-			await model.updateMany({}, aggregateUrlResource(iterator));
+			await model.updateMany({}, aggregateUrlsResources(iterator));
+			await model.updateMany({}, aggregateUrlResource('url'));
 		}
 	}
 };
