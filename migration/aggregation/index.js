@@ -6,7 +6,7 @@ const ORIGIN_HOST = config.get('originHost');
 //export const updateCreatedDate = { $set: { created: new Date() } };
 // export const updateEditedDate = { $set: { edited: new Date() } };
 
-export const aggregateUrlResource = inputResource => {
+export const aggregateUrlsResources = inputResource => {
 	return [
 		{
 			$set: {
@@ -21,6 +21,22 @@ export const aggregateUrlResource = inputResource => {
 								replacement: `${URL}${PORT}`,
 							},
 						},
+					},
+				},
+			},
+		},
+	];
+};
+
+export const aggregateUrlResource = keyObj => {
+	return [
+		{
+			$set: {
+				[keyObj]: {
+					$replaceOne: {
+						input: `$${keyObj}`,
+						find: `${ORIGIN_HOST}`,
+						replacement: `${URL}${PORT}`,
 					},
 				},
 			},

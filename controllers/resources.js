@@ -18,6 +18,7 @@ export const getPeopleResources = async (req, res) => {
 		query,
 		_parsedUrl: { pathname },
 	} = req;
+	console.log('----------- - req', req);
 
 	try {
 		const peopleCollection = await PeopleModel.find();
