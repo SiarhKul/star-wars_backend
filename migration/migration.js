@@ -14,11 +14,24 @@ import PeopleModel from '../models/People.js';
 import SpaciestModel from '../models/Species.js';
 import VehiclesModel from '../models/Vehicles.js';
 import StarshipsModel from '../models/Starships.js';
+import { aggregateUrlResource } from './aggregation/index.js';
 
 await connectMongoose();
 
 const getSpecificResources = async (url, model) => {
 	console.log(chalk.yellow('Database has been migrated -----', url));
+	const resources = [
+		'residents',
+		'films',
+		'species',
+		'starships',
+		'vehicles',
+		'pilots',
+		'people',
+		'residents',
+		'characters',
+	];
+
 	const request = await fetch(url);
 	const { count, results } = await request.json();
 	const amountPage = Math.ceil(count / results.length);
@@ -26,8 +39,22 @@ const getSpecificResources = async (url, model) => {
 	const urls = createUrl(amountPage, url);
 
 	const specificResources = await fetchSpecificResources(urls);
+
 	const newSpecificResources = convertDataBase(specificResources);
-	await model.insertMany(newSpecificResources);
+
+	const db = await model.find({});
+
+	if (db.length === 0) {
+		await model.insertMany(newSpecificResources);
+		for (const iterator of resources) {
+			await model.updateMany({}, aggregateUrlResource(iterator));
+		}
+	} else {
+		console.log('updating database');
+		for (const iterator of resources) {
+			await model.updateMany({}, aggregateUrlResource(iterator));
+		}
+	}
 };
 
 const migration = async () => {
