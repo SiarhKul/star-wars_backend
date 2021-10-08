@@ -1,4 +1,3 @@
-import fetch from 'node-fetch';
 import { errorHandler } from '../utils/index.js';
 import config from 'config';
 import chalk from 'chalk';

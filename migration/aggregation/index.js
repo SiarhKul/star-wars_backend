@@ -2,7 +2,7 @@ import config from 'config';
 
 const PORT = config.get('port');
 const URL = config.get('url');
-const ORIGIN_HOST = config.get('originHost');
+const MUTABLE_HOST = config.get('mutableHost');
 //export const updateCreatedDate = { $set: { created: new Date() } };
 // export const updateEditedDate = { $set: { edited: new Date() } };
 
@@ -17,7 +17,7 @@ export const aggregateUrlsResources = inputResource => {
 						in: {
 							$replaceOne: {
 								input: '$$v',
-								find: `${ORIGIN_HOST}`,
+								find: `${MUTABLE_HOST}`,
 								replacement: `${URL}${PORT}`,
 							},
 						},
@@ -35,7 +35,7 @@ export const aggregateUrlResource = keyObj => {
 				[keyObj]: {
 					$replaceOne: {
 						input: `$${keyObj}`,
-						find: `${ORIGIN_HOST}`,
+						find: `${MUTABLE_HOST}`,
 						replacement: `${URL}${PORT}`,
 					},
 				},

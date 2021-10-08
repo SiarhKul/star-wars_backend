@@ -55,10 +55,11 @@ const getSpecificResources = async (url, model) => {
 			await model.updateMany({}, aggregateUrlsResources(iterator));
 		}
 	} else {
-		console.log('updating database');
+		console.log('Updating database');
 		for (const iterator of resources) {
 			await model.updateMany({}, aggregateUrlsResources(iterator));
 			await model.updateMany({}, aggregateUrlResource('url'));
+			await model.updateMany({}, aggregateUrlResource('homeworld'));
 		}
 	}
 };
