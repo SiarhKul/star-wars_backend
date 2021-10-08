@@ -2,13 +2,11 @@ import config from 'config';
 
 const PORT = config.get('port');
 const URL = config.get('url');
+const ORIGIN_HOST = config.get('originHost');
+//export const updateCreatedDate = { $set: { created: new Date() } };
+// export const updateEditedDate = { $set: { edited: new Date() } };
 
-const host = `${URL}${PORT}`;
-
-export const updateCreatedDate = { $set: { created: new Date() } };
-export const updateEditedDate = { $set: { edited: new Date() } };
-
-export const changeUrlResource = inputResource => {
+export const aggregateUrlResource = inputResource => {
 	return [
 		{
 			$set: {
@@ -19,8 +17,8 @@ export const changeUrlResource = inputResource => {
 						in: {
 							$replaceOne: {
 								input: '$$v',
-								find: 'https://swapi.dev/api',
-								replacement: `${host}`,
+								find: `${ORIGIN_HOST}`,
+								replacement: `${URL}${PORT}`,
 							},
 						},
 					},

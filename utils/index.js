@@ -3,8 +3,7 @@ import config from 'config';
 
 const PORT = config.get('port');
 const URL = config.get('url');
-const ORIGINURL = config.get('originUrl');
-const host = `${URL}${PORT}`;
+const ORIGIN_HOST = config.get('originHost');
 
 //---------------------MIGRATION
 export const createUrl = (amountPage, url) => {
@@ -26,12 +25,12 @@ export const fetchSpecificResources = async urls => {
 export const convertDataBase = convertedResources => {
 	const newResourcesCollection = convertedResources.map((resours, i) => {
 		for (const key in resours) {
-			if (Array.isArray(resours[key])) {
-				resours[key] = resours[key].map(a => a.replace(ORIGINURL, `${host}`));
-			}
+			// if (Array.isArray(resours[key])) {
+			// 	resours[key] = resours[key].map(a => a.replace(ORIGIN_HOST, `${URL}${PORT}`));
+			// }
 
 			if (key === 'url' && typeof resours[key] === 'string') {
-				resours['url'] = resours[key].replace(ORIGINURL, `${host}`);
+				resours['url'] = resours[key].replace(ORIGIN_HOST, `${URL}${PORT}`);
 			}
 
 			if (key === 'created' && typeof resours[key] === 'string') {
@@ -43,7 +42,7 @@ export const convertDataBase = convertedResources => {
 			}
 
 			if (key === 'homeworld' && typeof resours[key] === 'string') {
-				resours[key] = resours[key].replace(ORIGINURL, `${host}`);
+				resours[key] = resours[key].replace(ORIGIN_HOST, `${URL}${PORT}`);
 			}
 		}
 		return { ...resours };
@@ -59,7 +58,7 @@ export const errorHandler = error => {
 	};
 };
 
-export const getNextPrevUrl = (query, PORT, URL, pathname, amountFilmsInDB) => {
+export const getPagination = (query, PORT, URL, pathname, amountFilmsInDB) => {
 	const perPage = 4;
 	const possibleAmountPage = Math.ceil(amountFilmsInDB / perPage);
 	const isEmptyQuery = Object.keys(query).length === 0;

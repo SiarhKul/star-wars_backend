@@ -1,4 +1,4 @@
-import { errorHandler, getNextPrevUrl } from '../utils/index.js';
+import { errorHandler, getPagination } from '../utils/index.js';
 import chalk from 'chalk';
 import config from 'config';
 import PeopleModel from '../models/People.js';
@@ -23,7 +23,7 @@ export const getPeopleResources = async (req, res) => {
 		const peopleCollection = await PeopleModel.find();
 		const amountPeopleInDB = peopleCollection.length;
 
-		const nextPrevPage = getNextPrevUrl(
+		const nextPrevPage = getPagination(
 			query,
 			PORT,
 			URL,
@@ -67,7 +67,7 @@ export const getFilmsResources = async (req, res) => {
 		const filmsCollection = await FilmsModel.find();
 		const amountFilmsInDB = filmsCollection.length;
 
-		const nextPrevPage = getNextPrevUrl(
+		const nextPrevPage = getPagination(
 			query,
 			PORT,
 			URL,
@@ -111,7 +111,7 @@ export const getStarshipsResources = async (req, res) => {
 		const starshipsCollection = await StarshipsModel.find();
 		const amountStarshipsInDB = starshipsCollection.length;
 
-		const nextPrevPage = getNextPrevUrl(
+		const nextPrevPage = getPagination(
 			query,
 			PORT,
 			URL,
@@ -155,7 +155,7 @@ export const getVehiclesResources = async (req, res) => {
 		const vehiclesCollection = await VehiclesModel.find();
 		const amountVehiclesInDB = vehiclesCollection.length;
 
-		const nextPrevPage = getNextPrevUrl(
+		const nextPrevPage = getPagination(
 			query,
 			PORT,
 			URL,
@@ -199,7 +199,7 @@ export const getSpeciesResources = async (req, res) => {
 		const speciesCollection = await SpaciestModel.find();
 		const amountSpeciesInDB = speciesCollection.length;
 
-		const nextPrevPage = getNextPrevUrl(
+		const nextPrevPage = getPagination(
 			query,
 			PORT,
 			URL,
@@ -243,7 +243,7 @@ export const getPlanetsResources = async (req, res) => {
 		const planetsCollection = await PlanetsModel.find();
 		const amountPlanetsInDB = planetsCollection.length;
 
-		const nextPrevPage = getNextPrevUrl(
+		const nextPrevPage = getPagination(
 			query,
 			PORT,
 			URL,
