@@ -21,18 +21,18 @@ const router = Router();
 
 router.get('/', getHomePage);
 
-router.get('/people', getPeopleResources);
-router.get('/films', getFilmsResources);
-router.get('/starships', getStarshipsResources);
-router.get('/vehicles', getVehiclesResources);
-router.get('/species', getSpeciesResources);
-router.get('/planets', getPlanetsResources);
+router.get('/api/people', getPeopleResources);
+router.get('/api/films', getFilmsResources);
+router.get('/api/starships', getStarshipsResources);
+router.get('/api/vehicles', getVehiclesResources);
+router.get('/api/species', getSpeciesResources);
+router.get('/api/planets', getPlanetsResources);
 
-router.get('/people/:id/', getSpecificPerson);
-router.get('/films/:id/', getSpecificFilm);
-router.get('/starships/:id/', getSpecificStarhip);
-router.get('/vehicles/:id/', getSpecificVehicle);
-router.get('/species/:id/', getSpecificSpace);
-router.get('/planets/:id/', getSpecificPlanet);
+router.get('/api/people/:id/', getSpecificPerson);
+router.get('/api/films/:id/', getSpecificFilm);
+router.get('/api/starships/:id/', getSpecificStarhip);
+router.get('/api/vehicles/:id/', getSpecificVehicle);
+router.get('/api/species/:id/', getSpecificSpace);
+router.get('/api/planets/:id/', getSpecificPlanet);
 
 export default router;

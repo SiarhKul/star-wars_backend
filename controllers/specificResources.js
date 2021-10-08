@@ -15,7 +15,6 @@ const URL = config.get('url');
 export const getSpecificPerson = async (req, res) => {
 	const query = { url: `${URL}${PORT}${req.originalUrl}` };
 	const option = { __v: 0, _id: 0 };
-
 	try {
 		const person = await PeopleModel.find(query, option);
 		if (person.length === 0) {
