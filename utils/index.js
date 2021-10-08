@@ -3,7 +3,7 @@ import config from 'config';
 
 const PORT = config.get('port');
 const URL = config.get('url');
-const ORIGIN_HOST = config.get('originHost');
+const MUTABLE_HOST = config.get('mutableHost');
 
 //---------------------MIGRATION
 export const createUrl = (amountPage, url) => {
@@ -26,11 +26,11 @@ export const convertDataBase = convertedResources => {
 	const newResourcesCollection = convertedResources.map((resours, i) => {
 		for (const key in resours) {
 			// if (Array.isArray(resours[key])) {
-			// 	resours[key] = resours[key].map(a => a.replace(ORIGIN_HOST, `${URL}${PORT}`));
+			// 	resours[key] = resours[key].map(a => a.replace(MUTABLE_HOST, `${URL}${PORT}`));
 			// }
 
 			if (key === 'url' && typeof resours[key] === 'string') {
-				resours['url'] = resours[key].replace(ORIGIN_HOST, `${URL}${PORT}`);
+				resours['url'] = resours[key].replace(MUTABLE_HOST, `${URL}${PORT}`);
 			}
 
 			if (key === 'created' && typeof resours[key] === 'string') {
@@ -42,7 +42,7 @@ export const convertDataBase = convertedResources => {
 			}
 
 			if (key === 'homeworld' && typeof resours[key] === 'string') {
-				resours[key] = resours[key].replace(ORIGIN_HOST, `${URL}${PORT}`);
+				resours[key] = resours[key].replace(MUTABLE_HOST, `${URL}${PORT}`);
 			}
 		}
 		return { ...resours };
