@@ -5,7 +5,9 @@
 	"main": "app.js",
 	"scripts": {
 		"serve": "nodemon app.js",
-		"migration": " node migration/migration.js"
+		"migration": " node migration/migration.js",
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix"
 	},
 	"type": "module",
 	"repository": {
@@ -28,8 +30,16 @@
 		"node-fetch": "^3.0.0"
 	},
 	"devDependencies": {
+		"@babel/core": "^7.15.8",
+		"@babel/eslint-parser": "^7.15.8",
 		"@types/express": "^4.17.13",
-		"nodemon": "^2.0.12"
+		"eslint": "^7.32.0",
+		"eslint-config-airbnb-base": "^14.2.1",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-plugin-import": "^2.24.2",
+		"eslint-plugin-prettier": "^4.0.0",
+		"nodemon": "^2.0.12",
+		"prettier": "^2.4.1"
 	},
 	"engines": {
 		"node": "14.17.1"

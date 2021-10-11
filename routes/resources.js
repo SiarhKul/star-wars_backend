@@ -1,19 +1,19 @@
 import { Router } from 'express';
 import {
-	getPeopleResources,
-	getFilmsResources,
-	getStarshipsResources,
-	getVehiclesResources,
-	getSpeciesResources,
-	getPlanetsResources,
+  getPeopleResources,
+  getFilmsResources,
+  getStarshipsResources,
+  getVehiclesResources,
+  getSpeciesResources,
+  getPlanetsResources,
 } from '../controllers/resources.js';
 import {
-	getSpecificFilm,
-	getSpecificPerson,
-	getSpecificPlanet,
-	getSpecificSpace,
-	getSpecificStarhip,
-	getSpecificVehicle,
+  getSpecificFilm,
+  getSpecificPerson,
+  getSpecificPlanet,
+  getSpecificSpace,
+  getSpecificStarhip,
+  getSpecificVehicle,
 } from '../controllers/specificResources.js';
 import { getHomePage } from '../controllers/welcome.js';
 

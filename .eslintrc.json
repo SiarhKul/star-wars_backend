@@ -1,0 +1,38 @@
+{
+	"env": {
+		"browser": true,
+		"es2021": true,
+		"node": true
+	},
+	"extends": ["prettier", "airbnb-base"],
+	"plugins": ["prettier"],
+	// "parser": "@babel/eslint-parser",
+	"parserOptions": {
+		"requireConfigFile": false,
+		"ecmaVersion": 12,
+		"sourceType": "module"
+	},
+	"rules": {
+		"no-restricted-syntax": ["error", "BinaryExpression[operator='in']"],
+		"no-unused-vars": "warn",
+		"linebreak-style": ["error", "windows"],
+		"import/prefer-default-export": "off",
+		"no-param-reassign": ["error", { "props": false }],
+		"prettier/prettier": [
+			"error",
+			{
+				"semi": true,
+				"singleQuote": true,
+				"endOfLine": "auto",
+				"trailingComma": "es5",
+				"useTabs:": true
+			}
+		],
+		"import/extensions": [
+			"error",
+			{
+				"js": "always"
+			}
+		]
+	}
+}
