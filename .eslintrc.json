@@ -4,9 +4,8 @@
 		"es2021": true,
 		"node": true
 	},
-	"extends": ["prettier", "airbnb-base"],
+	"extends": ["prettier", "airbnb-base", "plugin:node/recommended"],
 	"plugins": ["prettier"],
-	// "parser": "@babel/eslint-parser",
 	"parserOptions": {
 		"requireConfigFile": false,
 		"ecmaVersion": 12,
